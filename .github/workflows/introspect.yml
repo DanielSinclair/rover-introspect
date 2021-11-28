@@ -21,7 +21,7 @@ jobs:
       env:
         APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
   artifact1:
-    needs: introspect
+    needs: introspect1
     runs-on: ubuntu-latest
     steps:
     - uses: actions/download-artifact@v2
@@ -46,7 +46,7 @@ jobs:
       env:
         APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
   artifact2:
-    needs: introspect
+    needs: introspect2
     runs-on: ubuntu-latest
     steps:
     - uses: actions/download-artifact@v2
