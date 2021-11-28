@@ -41,6 +41,7 @@ const getInput = () => {
 
 const parseHeaders = (headersJSON = "{}") => {
   try {
+    console.log(headersJSON)
     const headers = JSON.parse(headersJSON)
     return Object.entries(headers).map(([key, value]) => `--header ${key}:${value}`)
   } catch(error) {
@@ -52,6 +53,7 @@ async function run() {
   try {
     const { federated, subgraph, server, headersJSON } = getInput()
     const headers = parseHeaders(headersJSON)
+    console.log(headers)
     const schema = await rover([
       federated ? 'subgraph' : 'graph',
       'introspect',
