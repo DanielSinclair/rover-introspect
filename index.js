@@ -32,9 +32,9 @@ const setOutput = (schema) => {
 }
 
 const getInput = () => {
-  const federated = core.getInput('federated')
+  const federated = core.getBooleanInput('federated')
   const subgraph = core.getInput('subgraph')
-  const server = core.getInput('server')
+  const server = core.getInput('server', { required: true })
   const headersJSON = core.getMultilineInput('headers').join('')
   return { federated, subgraph, server, headersJSON }
 }
