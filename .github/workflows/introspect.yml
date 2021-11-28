@@ -20,7 +20,7 @@ jobs:
         server: http://apollo:3000/
       env:
         APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
-  artifact:
+  artifact1:
     needs: introspect
     runs-on: ubuntu-latest
     steps:
@@ -44,11 +44,11 @@ jobs:
         headers: {"token": "s3cr3t"}
       env:
         APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
-  artifact:
+  artifact2:
     needs: introspect
     runs-on: ubuntu-latest
     steps:
     - uses: actions/download-artifact@v2
       with:
-        name: products.graphql
-    - run: cat products.graphql
+        name: graph.graphql
+    - run: cat graph.graphql
