@@ -35,16 +35,28 @@ const getInput = () => {
   const federated = core.getInput('federated')
   const subgraph = core.getInput('subgraph')
   const server = core.getInput('server')
-  return { federated, subgraph, server }
+  const headersJSON = core.getInput('headers')
+  return { federated, subgraph, server, headersJSON }
+}
+
+const parseHeaders = (headersJSON = "{}") => {
+  try {
+    const headers = JSON.parse(headersJSON)
+    return Object.entries(headers).map(([key, value]) => `--header ${key}:${value}`)
+  } catch(error) {
+    throw new Error('Failed to parse headers input, is it valid JSON?')
+  }
 }
 
 async function run() {
   try {
-    const { federated, subgraph, server } = getInput()
+    const { federated, subgraph, server, headersJSON } = getInput()
+    const headers = parseHeaders(headersJSON)
     const schema = await rover([
       federated ? 'subgraph' : 'graph',
       'introspect',
-      server
+      server,
+      ...headers
     ])
     const filename = federated ? `${subgraph}.graphql` : `graph.graphql`
     const file = saveFile(filename, schema)

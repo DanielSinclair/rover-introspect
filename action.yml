@@ -14,6 +14,9 @@ inputs:
   server:
     description: 'apollo server url'
     required: true
+  headers:
+    description: 'headers to include in introspection request, as JSON'
+    required: false
 outputs:
   schema:
     description: 'base64 encoded fetched SDL'

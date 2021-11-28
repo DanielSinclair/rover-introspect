@@ -14,6 +14,7 @@ Works in tandem with:
 | federated   | false   | no                     |
 | subgraph    |         | no, if federated false |
 | server      |         | apollo server url      |
+| headers     |         | no, JSON if provided   |
 
 ## outputs
 | name   | description                |
@@ -34,6 +35,7 @@ jobs:
         federated: true
         subgraph: products
         server: http://apollo:3000/
+        headers: {"token": "s3cr3t"}
       env:
         APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
 ```
