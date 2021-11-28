@@ -35,15 +35,15 @@ const getInput = () => {
   const federated = core.getInput('federated')
   const subgraph = core.getInput('subgraph')
   const server = core.getInput('server')
-  const headersJSON = core.getMultilineInput('headers')
+  const headersJSON = core.getMultilineInput('headers').join('')
   return { federated, subgraph, server, headersJSON }
 }
 
 const parseHeaders = (headersJSON = "{}") => {
   try {
-    console.log(headersJSON)
     const headers = JSON.parse(headersJSON)
-    return Object.entries(headers).map(([key, value]) => `--header ${key}:${value}`)
+    const headerFn = ([key, value]) => ['--header', `${key}:${value}`]
+    return Object.entries(headers).map(headerFn).flat()
   } catch(error) {
     throw new Error('Failed to parse headers input, is it valid JSON?')
   }
@@ -53,7 +53,6 @@ async function run() {
   try {
     const { federated, subgraph, server, headersJSON } = getInput()
     const headers = parseHeaders(headersJSON)
-    console.log(headers)
     const schema = await rover([
       federated ? 'subgraph' : 'graph',
       'introspect',
