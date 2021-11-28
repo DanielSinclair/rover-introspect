@@ -9,12 +9,12 @@ Works in tandem with:
 - [rover-publish](https://github.com/DanielSinclair/rover-publish)
 
 ## inputs
-| name        | default | required               |
-| :---------- | :------ | :--------------------- |
-| federated   | false   | no                     |
-| subgraph    |         | no, if federated false |
-| server      |         | apollo server url      |
-| headers     |         | no, JSON if provided   |
+| name        | default | required               | description         |
+| :---------- | :------ | :--------------------- | :------------------ |
+| federated   | false   | no                     | boolean             |
+| subgraph    |         | no, if federated false | string              |
+| server      |         | yes                    | url string          |
+| headers     |         | no                     | JSON-encoded string |
 
 ## outputs
 | name   | description                |

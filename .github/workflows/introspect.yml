@@ -4,20 +4,44 @@ on:
     branches:
       - main
 jobs:
-  introspect:
+  introspect1:
     runs-on: ubuntu-latest
     services:
       apollo:
         image: danielsinclair/apollo-example
     steps:
     - uses: actions/checkout@v2
-    - name: rover introspect
+    - name: rover introspect, federated
       id: introspect
       uses: ./
       with:
         federated: true
         subgraph: products
         server: http://apollo:3000/
+      env:
+        APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
+  artifact:
+    needs: introspect
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: products.graphql
+    - run: cat products.graphql
+  introspect2:
+    runs-on: ubuntu-latest
+    services:
+      apollo:
+        image: danielsinclair/apollo-example
+    steps:
+    - uses: actions/checkout@v2
+    - name: rover introspect, unfederated, headers
+      id: introspect
+      uses: ./
+      with:
+        federated: false
+        server: http://apollo:3000/
+        headers: {"token": "s3cr3t"}
       env:
         APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
   artifact:
