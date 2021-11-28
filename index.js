@@ -45,6 +45,7 @@ const parseHeaders = (headersJSON = "{}") => {
     const headerFn = ([key, value]) => ['--header', `${key}:${value}`]
     return Object.entries(headers).map(headerFn).flat()
   } catch(error) {
+    console.error(error)
     throw new Error('Failed to parse headers input, is it valid JSON?')
   }
 }
