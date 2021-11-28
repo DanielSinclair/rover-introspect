@@ -41,7 +41,8 @@ jobs:
       with:
         federated: false
         server: http://apollo:3000/
-        headers: {"token": "s3cr3t"}
+        headers: |
+          {"token": "s3cr3t"}
       env:
         APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
   artifact2:

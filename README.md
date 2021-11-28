@@ -35,7 +35,8 @@ jobs:
         federated: true
         subgraph: products
         server: http://apollo:3000/
-        headers: {"token": "s3cr3t"}
+        headers: |
+          {"token": "s3cr3t"}
       env:
         APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
 ```

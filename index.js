@@ -35,7 +35,7 @@ const getInput = () => {
   const federated = core.getInput('federated')
   const subgraph = core.getInput('subgraph')
   const server = core.getInput('server')
-  const headersJSON = core.getInput('headers')
+  const headersJSON = core.getMultilineInput('headers')
   return { federated, subgraph, server, headersJSON }
 }
 
